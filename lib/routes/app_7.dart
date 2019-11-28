@@ -10,6 +10,7 @@ class App_7 extends StatelessWidget {
         ),
         Text("Prueba 7"),
         Text("Prueba 2"),
+        Text("Prueba 3"),
       ],
     );
   }
