@@ -11,9 +11,11 @@ class App_8 extends StatelessWidget {
     final miControlador_1 =
         TextEditingController(); //Controlador de TextFormField
     var rgn = new Random(); //Objeto random
-    int aleatorio = rgn.nextInt(100); //Número aleatorio
+//    int aleatorio = rgn.nextInt(100); //Número aleatorio
     //int contador = 0; //Contador de intentos
-    final data = Data(counter: 0); //Objeto data con counter en 0
+    final num_aleatorio =
+        Data(counter: rgn.nextInt(100)); //Objeto donde guardo el num aleatorio
+    final contador = Data(counter: 1); //Objeto data con counter en 0
 
     //TODO el código
     return ListView(
@@ -31,7 +33,7 @@ class App_8 extends StatelessWidget {
         ),
         RaisedButton(
           onPressed: () {
-            eventoClickBoton(context, miControlador_1, aleatorio, data);
+            eventoClickBoton(context, miControlador_1, num_aleatorio, contador);
           },
           child: Text("Adivinar"),
         ),
@@ -43,21 +45,29 @@ class App_8 extends StatelessWidget {
 
 //Método 1
 //Método eventoClickBoton
-  void eventoClickBoton(BuildContext context,
-      TextEditingController miControlador_1, int aleatorio, Data data) {
+  void eventoClickBoton(
+      BuildContext context,
+      TextEditingController miControlador_1,
+      Data num_aleatorio,
+      Data contador) {
     int num = int.parse(miControlador_1.text);
 
     //Comparo los valores
-    if (num == aleatorio) {
-      String texto = "Has ganado!, Nro Intentos:\n" +
-          data.counter.toString(); //Muestro con data.counter
+    if (num == num_aleatorio.counter) {
+      String texto = "Has ganado! Nro Intentos:\n\n" +
+          contador.counter.toString(); //Muestro con data.counter
       showMyDialog(context, texto);
-    } else if (num > aleatorio) {
-      showMyDialog(context, "El número es menor\n\n" + aleatorio.toString());
-      data.counter += 1; //Le sumo 1 al contador
-    } else if (num < aleatorio) {
-      data.counter += 1; //Le sumo 1 al contador
-      showMyDialog(context, "El número es mayor\n\n" + aleatorio.toString());
+      var rgn = new Random();
+      contador.counter = 1;
+      num_aleatorio.counter = rgn.nextInt(100);
+    } else if (num > num_aleatorio.counter) {
+      showMyDialog(
+          context, "El número es menor\n\n" + num_aleatorio.counter.toString());
+      contador.counter += 1; //Le sumo 1 al contador
+    } else if (num < num_aleatorio.counter) {
+      contador.counter += 1; //Le sumo 1 al contador
+      showMyDialog(
+          context, "El número es mayor\n\n" + num_aleatorio.counter.toString());
     }
   } //Fin método eventoClickBoton
 
